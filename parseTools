@@ -1,0 +1,46 @@
+def change_equal(cookie_str, *args, **kwargs):
+    """
+    eg:'a=1, b=2, c=3'
+    :param cookie_str: 网页粘贴的冒号分割的cookies
+    :param args: None
+    :param kwargs: None
+    :return: requests所需的cookies参数格式
+    """
+    result = {}
+    str_item_of_list = cookie_str.split(';')
+    for i in str_item_of_list:
+        if i == '' or i.isspace():
+            continue
+        else:
+            new_str = i.split('=')
+            if len(new_str) <= 1:
+                result[new_str[0].strip()] = ''
+            result[new_str[0].strip()] = new_str[1].strip()
+    return result
+
+
+def change_colon(cookie_str, *args, **kwargs):
+    """
+    eg: ' ' ' a:1  b:2  c:3 ' ' '
+    :param cookie_str: 网页粘贴的冒号分割的cookies
+    :param args: None
+    :param kwargs: None
+    :return: requests所需的cookies参数格式
+    """
+    result = {}
+    str_item_of_list = cookie_str.split('\n')
+    for i in str_item_of_list:
+        if i == '' or i.isspace():
+            continue
+        else:
+            new_str = i.split(':')
+            if len(new_str) <= 1:
+                # try:
+                #     result[new_str[0].strip()]
+                # except:
+                #     pass
+                result[new_str[0].strip()] = ''
+            else:
+                result[new_str[0].strip()] = new_str[1].strip()
+    return result
+
